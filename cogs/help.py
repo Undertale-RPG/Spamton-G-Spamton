@@ -16,7 +16,7 @@ class Help(commands.Cog):
             timestamp = datetime.datetime.now()
         )
         em.set_thumbnail(url=self.bot.user.avatar.url)
-        forbid = ["Events"]   
+        forbid = ["Events", "Errors"]   
         for cog in self.bot.cogs:
             cog = self.bot.get_cog(cog)
             if cog.qualified_name in forbid:
