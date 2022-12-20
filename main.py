@@ -7,7 +7,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 load_dotenv()
 
-intents = disnake.Intents(messages=True, guilds=True)
+intents = disnake.Intents.all()
 
 class SpamtonBot(commands.AutoShardedInteractionBot):
     def __init__(self, **kwargs):
