@@ -3,7 +3,7 @@ import disnake
 from disnake import AllowedMentions
 from dotenv import load_dotenv
 from disnake.ext import commands
-from motor.motor_asyncio import AsyncIOMotorClient
+from utility.utils import ConsoleColors
 
 load_dotenv()
 
@@ -17,17 +17,24 @@ class SpamtonBot(commands.AutoShardedInteractionBot):
         self.help_command = None
         self.error_webhook = os.getenv("ERROR_WEBHOOK")
 
+    async def on_shard_connect(self, shard):
+        print(
+            f"{ConsoleColors.CYAN}---------- {ConsoleColors.GREEN}Shard {shard} is on {ConsoleColors.CYAN}-------------\n"
+            f"{ConsoleColors.GREEN}Total Guilds: {len(self.guilds)}\n"
+            f"{ConsoleColors.GREEN}Total Shards: {len(self.shards)}\n"
+            f"{ConsoleColors.CYAN}--------------------------------------{ConsoleColors.ENDC}"
+        )
+
     def load_all_cogs(self):
         for filename in os.listdir("./cogs"):
             if filename.endswith(".py") and not filename.startswith("_"):
                 self.load_extension(f"cogs.{filename[:-3]}")
-                print(f"🔁 cogs.{filename[:-3]} is loaded and ready.")
+                print(f"{ConsoleColors.GREEN}🔁 cogs.{filename[:-3]} is loaded and ready.")
         return
-
 
 bot = SpamtonBot(
     intents=intents,
-    owner_ids=[536538183555481601, 1023550762816638996],
+    owner_ids=[536538183555481601],
     allowed_mentions=AllowedMentions(
         users=True,
         everyone=False,

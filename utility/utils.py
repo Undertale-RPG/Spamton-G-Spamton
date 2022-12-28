@@ -19,7 +19,13 @@ async def create_player_info(inter, mem):
             "_id": inter.guild.id,
 
             #channel id's
-            "logs_chan": None
+            "logs_chan": None,
+            "join_chan": None,
+            "leave_chan": None,
+
+            #role id's
+            "admin_role": None,
+            "mod_role": None
         }
 
         await inter.bot.players.insert_one(new_account)
