@@ -13,7 +13,7 @@ class Errors(commands.Cog):
             em = disnake.Embed(
                 title="This command is on cooldown!",
                 description=f"Try again in **{error.retry_after:.2f}** seconds",
-                color=0x0077ff
+                color=0x3EB58B
             )
             return await inter.send(embed=em, ephemeral=True)
         
@@ -22,7 +22,7 @@ class Errors(commands.Cog):
         embed = {
             "description": f"{error}",
             "title": "An error has occured",
-            "color": 0x0077ff,
+            "color": 0x3EB58B,
             "timestamp": ""
         }
         

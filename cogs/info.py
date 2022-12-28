@@ -11,7 +11,7 @@ class Info(commands.Cog):
 	async def server(self, inter):
 		em = disnake.Embed(
 			title="Server Info",
-			color=0x5bb95d
+			color=0x3EB58B
 		)
 		em.set_thumbnail(url=inter.guild.icon)
 		em.add_field(name="👑Owner", value=f"```{inter.guild.owner}```")
@@ -24,7 +24,7 @@ class Info(commands.Cog):
 
 		await inter.send(embed=em)
 
-	@commands.slash_command()
+	@commands.slash_command(description="List of all server roles")
 	@commands.cooldown(1, 12, commands.BucketType.user)
 	async def roles(self, inter):
 		guild_roles = []
@@ -36,7 +36,7 @@ class Info(commands.Cog):
 		roles = "".join(f"• {role.mention}`({len(role.members)} members)`\n" for role in guild_roles)
 		em = disnake.Embed(
 			title="List of all our roles",
-			color=0x5bb95d,
+			color=0x3EB58B,
 			description=roles
 		)
 		await inter.send(embed=em)

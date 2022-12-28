@@ -12,7 +12,7 @@ class Help(commands.Cog):
         """Info on how to use the bot and it's commands.""" 
         em = disnake.Embed(
             title = "📜 | Help Menu!",
-            color = 0x0077ff,
+            color = 0x3EB58B,
             timestamp = datetime.datetime.now()
         )
         em.set_thumbnail(url=self.bot.user.avatar.url)
