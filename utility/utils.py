@@ -11,7 +11,7 @@ class ConsoleColors:
     BOLD    = '\033[1m'
     UNDER   = '\033[4m'
 
-async def create_player_info(inter, mem):
+async def create_guild(inter, mem):
     dat = await inter.bot.players.find_one({"_id": mem.id})
     if dat is None:
         new_account = {

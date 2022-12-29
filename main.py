@@ -4,10 +4,13 @@ from disnake import AllowedMentions
 from dotenv import load_dotenv
 from disnake.ext import commands
 from utility.utils import ConsoleColors
+from motor.motor_asyncio import AsyncIOMotorClient
 
 load_dotenv()
 
-intents = disnake.Intents.all()
+intents = disnake.Intents.default()
+intents.members = True
+intents.message_content = True
 
 class SpamtonBot(commands.AutoShardedInteractionBot):
     def __init__(self, **kwargs):
@@ -16,6 +19,10 @@ class SpamtonBot(commands.AutoShardedInteractionBot):
         self.activity = disnake.Game("Together with all of you")
         self.help_command = None
         self.error_webhook = os.getenv("ERROR_WEBHOOK")
+        self.MongoUrl = os.getenv("MONGO_URL")
+        self.cluster = AsyncIOMotorClient(self.MongoUrl)
+        self.db = None
+        self.guilds_db = None
 
     async def on_shard_connect(self, shard):
         print(
