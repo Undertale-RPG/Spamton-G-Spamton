@@ -43,6 +43,7 @@ class Info(commands.Cog):
 		await inter.send(embed=em)
 
 	@commands.slash_command(description="shows info on a role")
+	@commands.cooldown(1, 12, commands.BucketType.user)
 	async def role(self, inter, role: disnake.Role):
 		em = disnake.Embed(
 			title="Role info",
@@ -52,6 +53,26 @@ class Info(commands.Cog):
 		em.add_field(name="Name", value=f"```{role.name}```")
 		em.add_field(name="Color", value=f"```{role.color}```")
 		em.add_field(name="Created at", value=f"```{role.created_at.ctime()}```", inline=False)
+
+		await inter.send(embed=em)
+
+	@commands.slash_command(description="see userinfo")
+	@commands.cooldown(1, 12, commands.BucketType.user)
+	async def member(self, inter, member: disnake.User = None):
+		if member == None:
+			member = inter.author
+
+		user = await self.bot.fetch_user(member.id)
+		em = disnake.Embed(
+			title="Member info",
+			color=member.color
+		)
+		em.set_thumbnail(url=member.display_avatar)
+		em.set_image(url=user.banner)
+		em.add_field(name="Name",value=f"```{member.display_name}({member})```")
+		em.add_field(name="Bot?", value=f"```{member.bot}```")
+		em.add_field(name="ID", value=f"```{member.id}```", inline=False)
+		em.add_field(name="Joined discord", value=f"```{member.created_at.ctime()}```", inline=False)
 
 		await inter.send(embed=em)
 
