@@ -6,7 +6,7 @@ class Info(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 	
-	@commands.slash_command()
+	@commands.slash_command(description="shows server info")
 	@commands.cooldown(1, 12, commands.BucketType.user)
 	async def server(self, inter):
 		em = disnake.Embed(
@@ -33,6 +33,7 @@ class Info(commands.Cog):
 				guild_roles.append(role)
 			else:
 				pass
+		guild_roles.sort(reverse=True)
 		roles = "".join(f"• {role.mention}`({len(role.members)} members)`\n" for role in guild_roles)
 		em = disnake.Embed(
 			title="List of all our roles",
@@ -41,10 +42,18 @@ class Info(commands.Cog):
 		)
 		await inter.send(embed=em)
 
-	@commands.slash_command()
-	async def emojis(self, inter):
-		emojis = "".join(f":{emoji.name}: " for emoji in inter.guild.emojis)
-		await inter.send(emojis)
+	@commands.slash_command(description="shows info on a role")
+	async def role(self, inter, role: disnake.Role):
+		em = disnake.Embed(
+			title="Role info",
+			color=role.color
+		)
+		em.set_thumbnail(url=role.icon)
+		em.add_field(name="Name", value=f"```{role.name}```")
+		em.add_field(name="Color", value=f"```{role.color}```")
+		em.add_field(name="Created at", value=f"```{role.created_at.ctime()}```", inline=False)
+
+		await inter.send(embed=em)
 
 def setup(bot):
 	bot.add_cog(Info(bot))

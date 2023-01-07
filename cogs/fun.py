@@ -8,11 +8,11 @@ class Fun(commands.Cog):
 
     @commands.slash_command(description="flip a coin!")
     @commands.cooldown(1, 12, commands.BucketType.user)
-    async def flip(self, inter):
+    async def coin(self, inter):
         choice = random.choice(["Head","Tails"])
         await inter.send(choice)
 
-    @commands.slash_command(description="")
+    @commands.slash_command(description="play rps")
     @commands.cooldown(1, 12, commands.BucketType.user)
     async def rps(self, inter, choice: str = commands.Param(choices=["Rock", "Paper", "Scissors"])):
         botchoice = random.choice(["Rock", "Paper", "Scissors"])
